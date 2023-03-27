@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AE Frontend Interview</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="MasterDetail.js"></script>
+    <script>
+      const { MasterDetail } = window;
+
+      const App = () => (
+        <MasterDetail>
+          <MasterDetail.Item payload={{ title: 'Item 1', content: 'This is the content for Item 1.' }}>
+            Item 1
+          </MasterDetail.Item>
+          <MasterDetail.Item payload={{ title: 'Item 2', content: 'This is the content for Item 2.' }}>
+            Item 2
+          </MasterDetail.Item>
+          <MasterDetail.Detail>
+            {(payload) => (
+              <div>
+                <h2>{payload.title}</h2>
+                <p>{payload.content}</p>
+              </div>
+            )}
+          </MasterDetail.Detail>
+        </MasterDetail>
+      );
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@apollo/client@3.5.6/lib/index.js"></script>
+
+    <script>
+      const client = new ApolloClient({
+        uri: 'https://api.github.com/graphql',
+        cache: new InMemoryCache(),
+        headers: {
+          Authorization: `Bearer YOUR_GITHUB_TOKEN_HERE`,
+        },
+      });
+
+      ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+  </body>
+</html>
